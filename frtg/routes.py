@@ -2,6 +2,7 @@ import functools
 import logging
 
 from flask import Blueprint, jsonify, request, Response, render_template, current_app
+from twython import Twython
 
 blueprint = Blueprint("frtg-default-routes", __name__)
 
@@ -40,15 +41,44 @@ def version():
     return jsonify(version_params)
 
 
+def _do_twitter_query(credentials, filters, max_data_points=10):
+
+    python_tweets = Twython(
+        credentials['consumer key'],
+        credentials['consumer secret'])
+
+    query = {
+        'q': ' OR '.join(filters),
+        # 'result_type': 'popular',
+        'count': min(15, max(max_data_points, 0))
+        # 'lang': 'en'
+    }
+
+    return python_tweets.search(**query)['statuses']
+
+
+def _format_tweet(t):
+    return {
+        'hashtags': [h['text'] for h in t['entities']['hashtags']],
+        'time': t['created_at'],
+        'user': t['user']['screen_name'],
+        'profile_image': t['user']['profile_image_url'],
+        'user_loc': t['user']['location'],
+        'text': t['text']
+    }
+
+
 @blueprint.route("/tweets", methods=['GET', 'POST'])
 @require_accepts_json
 def tweets():
-    logger.debug(f'getting tweets')
-    DUMMY_DATA = [
-        {'a': 1, 'b': 2, 'c': 3},
-        {'a': 4, 'b': 5, 'c': 6}
-    ]
-    return jsonify(DUMMY_DATA)
+    logger.debug('getting tweets')
+    config = current_app.config['TWITTER_PARAMS']
+    query_results = _do_twitter_query(
+        credentials=config['credentials'],
+        filters=config['search']['filter hints'],
+        max_data_points=config['search']['max nr rows'])
+
+    return jsonify([_format_tweet(t) for t in query_results])
 
 
 @blueprint.route('/')

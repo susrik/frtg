@@ -11,7 +11,8 @@ setup(
     install_requires=[
         'flask',
         'pika',
-        'jsonschema'
+        'jsonschema',
+        'twython'
     ],
     include_package_data=True,
 )
