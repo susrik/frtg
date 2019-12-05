@@ -50,8 +50,9 @@ def _do_twitter_query(credentials, filters, max_data_points=10):
     query = {
         'q': ' OR '.join(filters),
         # 'result_type': 'popular',
-        'count': min(15, max(max_data_points, 0))
+        'count': min(15, max(max_data_points, 0)),
         # 'lang': 'en'
+        'tweet_mode': 'extended'
     }
 
     import json
@@ -67,7 +68,7 @@ def _format_tweet(t):
         'user': t['user']['screen_name'],
         'profile_image': t['user']['profile_image_url'],
         'user_loc': t['user']['location'],
-        'text': t['text']
+        'text': t['full_text']
     }
 
 
