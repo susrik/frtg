@@ -1,0 +1,12 @@
+{
+  "credentials": {
+    "consumer key": "xxxxxxxxxxxx",
+    "consumer secret": "xxxxxxxxxxxxxx",
+    "access token key": "xxxxxxxxxxxxxxxx",
+    "access token secret": "xxxxxxxxxxxxxxxxx"
+  },
+  "search": {
+    "filter hints": ["@GEANTnews", "@eduroam", "@TNC_GEANT"],
+    "max nr rows": 15
+  }
+}
