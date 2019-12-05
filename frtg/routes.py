@@ -54,7 +54,10 @@ def _do_twitter_query(credentials, filters, max_data_points=10):
         # 'lang': 'en'
     }
 
-    return python_tweets.search(**query)['statuses']
+    import json
+    with open('sample_query_response.json') as f:
+        return json.loads(f.read())
+    # return python_tweets.search(**query)['statuses']
 
 
 def _format_tweet(t):
