@@ -2,3 +2,6 @@ flask
 pika
 jsonschema
 twython
+
+pytest
+pytest-mock
