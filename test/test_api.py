@@ -62,9 +62,7 @@ def config_file():
     params = {
         'credentials': {
             'consumer key': 'zzzzzzzzzzzzz',
-            'consumer secret': 'zzzzzzzzzzzzz',
-            'access token key': 'zzzzzzzzzzzz',
-            'access token secret': 'zzzzzzzzzzzzz'
+            'consumer secret': 'zzzzzzzzzzzzz'
         },
         'search': {
             'filter hints': ['aaa', 'bbb', 'ccc'],
