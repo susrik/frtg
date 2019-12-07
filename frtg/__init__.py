@@ -24,12 +24,7 @@ CONFIG_SCHEMA = {
                 'access token key': {'type': 'string'},
                 'access token secret': {'type': 'string'},
             },
-            'required': [
-                'consumer key',
-                'consumer secret',
-                'access token key',
-                'access token secret'
-            ],
+            'required': ['consumer key', 'consumer secret'],
             'additionalProperties': False
         },
         'search': {
