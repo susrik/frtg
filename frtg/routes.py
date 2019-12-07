@@ -55,19 +55,34 @@ def _do_twitter_query(credentials, filters, max_data_points=10):
         'tweet_mode': 'extended'
     }
 
-    import json
-    with open('sample_query_response.json') as f:
-        return json.loads(f.read())
-    # return python_tweets.search(**query)['statuses']
+    # import json
+    # with open('sample_query_response.json') as f:
+    #     return json.loads(f.read())
+    return python_tweets.search(**query)['statuses']
 
 
-def _format_tweet(t):
+def format_tweet(t):
+
+    def _user(t):
+        return {
+            'name': t['user']['name'],
+            'screen_name': t['user']['screen_name'],
+            'profile_image': t['user']['profile_image_url'],
+            'user_loc': t['user']['location']
+        }
+
+    if 'retweeted_status' in t:
+        data = format_tweet(t['retweeted_status'])
+        data['retweet'] = {
+            'time': t['created_at'],
+            'user': _user(t),
+        }
+        return data
+
     return {
-        'hashtags': [h['text'] for h in t['entities']['hashtags']],
         'time': t['created_at'],
-        'user': t['user']['screen_name'],
-        'profile_image': t['user']['profile_image_url'],
-        'user_loc': t['user']['location'],
+        'user': _user(t),
+        'hashtags': [h['text'] for h in t['entities']['hashtags']],
         'text': t['full_text']
     }
 
