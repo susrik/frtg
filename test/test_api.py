@@ -85,9 +85,33 @@ def client(config_file):
         yield c
 
 
-def test_tweet_list(client):
+class MockedTwython:
+
+    SAMPLE_DATA_FILENAME = os.path.join(
+        os.path.dirname(__file__),
+        'sample_query_response.json')
+
+    def __init__(self, *args, **kwargs):
+        pass
+
+    def search(self, **kwargs):
+        # some sanity checks on the expected search args
+        for varname in ['q', 'count', 'tweet_mode']:
+            assert varname in kwargs.keys()
+        assert kwargs['tweet_mode'] == 'extended'
+
+        with open(MockedTwython.SAMPLE_DATA_FILENAME) as f:
+            return {'statuses': json.loads(f.read())}
+
+
+def test_tweet_list(client, mocker):
+
+    mocker.patch('frtg.routes.Twython', MockedTwython)
+
     rv = client.get('/tweets', headers=DEFAULT_REQUEST_HEADERS)
     assert rv.status_code == 200
     assert rv.is_json
     response_data = json.loads(rv.data.decode('utf-8'))
     jsonschema.validate(response_data, TWEET_LIST_RESPONSE_SCHEMA)
+    assert len(response_data) > 0, \
+        'sanity check: expected a non-empty response'
