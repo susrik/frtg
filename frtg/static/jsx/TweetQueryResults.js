@@ -20,12 +20,7 @@ class TweetQueryResults extends React.Component {
 
       const rsp_json = await response.json();
       this.setState({
-          tweets: rsp_json.map(t => <Tweet
-              user={t.user}
-              image={t.profile_image}
-              time={t.time}
-              location={t.user_loc}
-              text={t.text}/>)
+          tweets: rsp_json.map(t => <Tweet info={t}/>)
       });
 
     }
