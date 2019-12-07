@@ -72,9 +72,10 @@ def _format_tweet(t):
     }
 
 
-@blueprint.route("/tweets", methods=['GET', 'POST'])
+@blueprint.route("/tweets", methods=['GET', 'POST'], defaults={'raw': None})
+@blueprint.route("/tweets/<raw>", methods=['GET', 'POST'])
 @require_accepts_json
-def tweets():
+def tweets(raw):
     logger.debug('getting tweets')
     config = current_app.config['TWITTER_PARAMS']
     query_results = _do_twitter_query(
@@ -82,7 +83,10 @@ def tweets():
         filters=config['search']['filter hints'],
         max_data_points=config['search']['max nr rows'])
 
-    return jsonify([_format_tweet(t) for t in query_results])
+    if raw:
+        return jsonify(list(query_results))
+
+    return jsonify([format_tweet(t) for t in query_results])
 
 
 @blueprint.route('/')
