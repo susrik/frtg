@@ -35,7 +35,8 @@ class Tweet extends React.Component {
             name: '######',
             screen_name: '####',
             profile_image: '####'
-        }
+        };
+
         if ('retweet' in this.props.info) {
             retweet_visibility_style = {};
             rtuser = this.props.info.retweet.user;
@@ -45,25 +46,34 @@ class Tweet extends React.Component {
 
         return (
 
-            <span className="container">
+            <span className="tweet-container">
 
-                <span className="row" style={retweet_visibility_style}>
-                    <span className="profile-image col-2 offset-1">
+                <span className="retweet-row" style={retweet_visibility_style}>
+                    <span className="profile-image col-1 offset-1">
                         <img src={rtuser.profile_image}/>
                     </span>
-                    <span className="user retweeted col-9">
-                        {rtuser.name + ' @' + rtuser.screen_name + ' retweeted'}
+                    <span className="user retweeted col-1">
+                        {rtuser.name}
+                    </span>
+                    <span className="screen-name retweeted col-1">
+                        {'@' + rtuser.screen_name}
+                    </span>
+                    <span className="retweeted col-8">
+                        retweeted
                     </span>
                 </span>
 
-                <span className="row">
-                    <span className="profile-image col-2">
+                <span className="user-row">
+                    <span className="profile-image col-1">
                         <img src={this.props.info.user.profile_image}/>
                     </span>
-                    <span className="user col-4">
-                        {user.name + ' @' + user.screen_name}
+                    <span className="user col-1">
+                        {user.name}
                     </span>
-                    <span className="tweet-time col-8">
+                    <span className="user col-1">
+                        {'@' + user.screen_name}
+                    </span>
+                    <span className="tweet-time col-9">
                         {this.props.info.time}
                     </span>
                 </span>

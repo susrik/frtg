@@ -1,5 +1,9 @@
 @import "~bootstrap/scss/bootstrap";
 
+.tweet-container {
+  @extend .container;
+}
+
 .tweet-text {
   //float: left;
   width: 498px;
@@ -23,17 +27,30 @@
 }
 
 .user {
-  color: #999;
+  color: #090909;
   float: left;
 }
 
-.retweeted {
-  color: darkgreen;
+.screen-name {
+  color: #040404;
+  float: left;
 }
 
-  //.location {
-  //    color: #999;
-  //}
+.retweet-row {
+  @extend .row;
+}
+
+.user-row {
+  @extend .row;
+}
+
+.retweeted {
+  color: lightgreen;
+}
+
+//.location {
+//    color: #999;
+//}
 
 
 
