@@ -49,6 +49,13 @@ class Tweet extends React.Component {
             <span className="tweet-container">
 
                 <span className="user-row">
+                    <span className="tweet-time">
+                        {this.props.info.time}
+                    </span>
+                </span>
+
+
+                <span className="user-row">
                     <span className="profile-image">
                         <img src={this.props.info.user.profile_image}/>
                     </span>
@@ -57,9 +64,6 @@ class Tweet extends React.Component {
                     </span>
                     <span className="screen-name">
                         {'@' + user.screen_name}
-                    </span>
-                    <span className="tweet-time">
-                        {this.props.info.time}
                     </span>
                 </span>
 
