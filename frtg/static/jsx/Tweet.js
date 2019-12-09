@@ -48,21 +48,6 @@ class Tweet extends React.Component {
 
             <span className="tweet-container">
 
-                <span className="retweet-row" style={retweet_visibility_style}>
-                    <span className="retweeted">
-                        retweeted
-                    </span>
-                    <span className="profile-image">
-                        <img src={rtuser.profile_image}/>
-                    </span>
-                    <span className="user retweeted">
-                        {rtuser.name}
-                    </span>
-                    <span className="screen-name retweeted">
-                        {'@' + rtuser.screen_name}
-                    </span>
-                </span>
-
                 <span className="user-row">
                     <span className="profile-image">
                         <img src={this.props.info.user.profile_image}/>
@@ -81,6 +66,21 @@ class Tweet extends React.Component {
                 <span className="tweet-text-row">
                     <span className="tweet-text">
                         {this.props.info.text}
+                    </span>
+                </span>
+
+                <span className="retweet-row" style={retweet_visibility_style}>
+                    <span className="retweeted">
+                        retweeted by
+                    </span>
+                    <span className="profile-image">
+                        <img src={rtuser.profile_image}/>
+                    </span>
+                    <span className="user retweeted">
+                        {rtuser.name}
+                    </span>
+                    <span className="screen-name retweeted">
+                        {'@' + rtuser.screen_name}
                     </span>
                 </span>
 
