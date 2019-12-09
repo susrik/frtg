@@ -1,5 +1,6 @@
 import React from 'react';
 import 'bootstrap'
+import './Tweet.scss';
 
 class Tweet extends React.Component {
 
@@ -29,40 +30,51 @@ class Tweet extends React.Component {
             //     }
             // }
 
-        var retweet_text = '';
-        var retweet_image = '';
+        var retweet_visibility_style = {display: 'none'}
+        var rtuser = {
+            name: '######',
+            screen_name: '####',
+            profile_image: '####'
+        }
         if ('retweet' in this.props.info) {
-            var ru = this.props.info.retweet.user;
-            retweet_text = ru.name + '@' + ru.screen_name + ' retweeted';
-            retweet_image = ru.profile_image;
+            retweet_visibility_style = {};
+            rtuser = this.props.info.retweet.user;
         }
 
+        var user = this.props.info.user;
+
         return (
-            <div>
-                <span class="retweet-image">
-                    <image src={retweet_image}/>
-                </span>
-                <span class="retweet-text">
-                    {retweet_text}
+
+            <span className="container">
+
+                <span className="row" style={retweet_visibility_style}>
+                    <span className="profile-image col-2 offset-1">
+                        <img src={rtuser.profile_image}/>
+                    </span>
+                    <span className="user retweeted col-9">
+                        {rtuser.name + ' @' + rtuser.screen_name + ' retweeted'}
+                    </span>
                 </span>
 
-                <span class="user-image">
-                    <image src={this.props.info.user.profile_image}/>
-                </span>
-                <span className="user-name">
-                    {this.props.info.user.name}
-                </span>
-                <span className="user-screen-name">
-                    "@" + {this.props.info.user.screen_name}
+                <span className="row">
+                    <span className="profile-image col-2">
+                        <img src={this.props.info.user.profile_image}/>
+                    </span>
+                    <span className="user col-4">
+                        {user.name + ' @' + user.screen_name}
+                    </span>
+                    <span className="tweet-time col-8">
+                        {this.props.info.time}
+                    </span>
                 </span>
 
-                <span className="tweet-time">
-                    {this.props.info.time}
+                <span className="row">
+                    <span className="tweet-text col-12">
+                        {this.props.info.text}
+                    </span>
                 </span>
-                <span className="tweet-time">
-                    {this.props.info.text}
-                </span>
-            </div>
+
+           </span>
         );
     }
 }
