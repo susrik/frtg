@@ -1,7 +1,7 @@
 @import "~bootstrap/scss/bootstrap";
 
 .grid-container {
-  margin: 20px;
+  @extend .m-3;
   display: grid;
   grid-template-columns: repeat(auto-fill, 450px);
   grid-column-gap: 20px;
@@ -9,5 +9,9 @@
 }
 
 .grid-item {
+  @extend .p-2;
+  @extend .border;
+  @extend .rounded;
+  @extend .border-primary;
 //  max-width: 400px;
 }
