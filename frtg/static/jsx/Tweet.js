@@ -78,7 +78,7 @@ class Tweet extends React.Component {
                     </span>
                 </span>
 
-                <span className="row">
+                <span className="tweet-text-row">
                     <span className="tweet-text col-12">
                         {this.props.info.text}
                     </span>

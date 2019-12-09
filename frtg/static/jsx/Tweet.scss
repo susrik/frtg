@@ -44,6 +44,10 @@
   @extend .row;
 }
 
+.tweet-text-row {
+  @extend .row;
+}
+
 .retweeted {
   color: lightgreen;
 }
