@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatRelative } from 'date-fns';
 import 'bootstrap'
 import './Tweet.scss';
 
@@ -44,13 +45,14 @@ class Tweet extends React.Component {
 
         var user = this.props.info.user;
 
+        var relative = formatRelative(Date.parse(this.props.info.time), Date.now());
         return (
 
             <span className="tweet-container">
 
                 <span className="user-row">
                     <span className="tweet-time">
-                        {this.props.info.time}
+                        {relative}
                     </span>
                 </span>
 
