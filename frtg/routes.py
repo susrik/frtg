@@ -50,19 +50,19 @@ def _do_twitter_query(credentials, filters, max_data_points=10):
     query = {
         'q': ' OR '.join(filters),
         # 'result_type': 'popular',
-        'count': min(15, max(max_data_points, 0)),
+        'count': min(50, max(max_data_points, 0)),
         # 'lang': 'en'
         'tweet_mode': 'extended'
     }
 
-    import json
-    import os
-    data_filename = os.path.join(
-        os.path.dirname(__file__),
-        '..', 'test', 'sample_query_response.json')
-    with open(data_filename) as f:
-        return json.loads(f.read())
-    # return python_tweets.search(**query)['statuses']
+    # import json
+    # import os
+    # data_filename = os.path.join(
+    #     os.path.dirname(__file__),
+    #     '..', 'test', 'sample_query_response.json')
+    # with open(data_filename) as f:
+    #     return json.loads(f.read())
+    return python_tweets.search(**query)['statuses']
 
 
 def format_tweet(t):
