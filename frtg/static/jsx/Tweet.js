@@ -49,37 +49,37 @@ class Tweet extends React.Component {
             <span className="tweet-container">
 
                 <span className="retweet-row" style={retweet_visibility_style}>
-                    <span className="profile-image col-1 offset-1">
+                    <span className="profile-image">
                         <img src={rtuser.profile_image}/>
                     </span>
-                    <span className="user retweeted col-1">
+                    <span className="user retweeted">
                         {rtuser.name}
                     </span>
-                    <span className="screen-name retweeted col-1">
+                    <span className="screen-name retweeted">
                         {'@' + rtuser.screen_name}
                     </span>
-                    <span className="retweeted col-8">
+                    <span className="retweeted">
                         retweeted
                     </span>
                 </span>
 
                 <span className="user-row">
-                    <span className="profile-image col-1">
+                    <span className="profile-image">
                         <img src={this.props.info.user.profile_image}/>
                     </span>
-                    <span className="user col-1">
+                    <span className="user">
                         {user.name}
                     </span>
-                    <span className="user col-1">
+                    <span className="screen-name">
                         {'@' + user.screen_name}
                     </span>
-                    <span className="tweet-time col-9">
+                    <span className="tweet-time">
                         {this.props.info.time}
                     </span>
                 </span>
 
                 <span className="tweet-text-row">
-                    <span className="tweet-text col-12">
+                    <span className="tweet-text">
                         {this.props.info.text}
                     </span>
                 </span>
