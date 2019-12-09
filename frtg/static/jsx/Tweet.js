@@ -49,6 +49,9 @@ class Tweet extends React.Component {
             <span className="tweet-container">
 
                 <span className="retweet-row" style={retweet_visibility_style}>
+                    <span className="retweeted">
+                        retweeted
+                    </span>
                     <span className="profile-image">
                         <img src={rtuser.profile_image}/>
                     </span>
@@ -57,9 +60,6 @@ class Tweet extends React.Component {
                     </span>
                     <span className="screen-name retweeted">
                         {'@' + rtuser.screen_name}
-                    </span>
-                    <span className="retweeted">
-                        retweeted
                     </span>
                 </span>
 

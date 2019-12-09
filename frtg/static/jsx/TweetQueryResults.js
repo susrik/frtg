@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap'
 import Tweet from './Tweet';
+import './TweetQueryResults.scss';
 
 const REFRESH_FREQUENCY_MS = 120000;
 
@@ -22,14 +23,18 @@ class TweetQueryResults extends React.Component {
 
       const rsp_json = await response.json();
       this.setState({
-          tweets: rsp_json.map(t => <Tweet info={t}/>)
+          tweets: rsp_json.map(t => (
+              <div class='grid-item'>
+                  <Tweet info={t}/>
+              </div>
+          ))
       });
 
     }
 
     render() {
         return (
-            <div>
+            <div class='grid-container'>
                 {this.state.tweets}
             </div>
         );
