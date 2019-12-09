@@ -2,13 +2,15 @@ import React from 'react';
 import 'bootstrap'
 import Tweet from './Tweet';
 
+const REFRESH_FREQUENCY_MS = 120000;
+
 class TweetQueryResults extends React.Component {
 
     constructor() {
         super();
         this.state = {tweets: []}
         this.loadTweets();
-        setInterval(() => this.loadTweets(), 10000);
+        setInterval(() => this.loadTweets(), REFRESH_FREQUENCY_MS);
     }
 
     async loadTweets() {
