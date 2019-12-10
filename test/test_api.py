@@ -45,9 +45,10 @@ TWEET_LIST_RESPONSE_SCHEMA = {
                     'items': {'type': 'string'}
                 },
                 'text': {'type': 'string'},
+                'html': {'type': 'string'},
                 'retweet': {'$ref': '#/definitions/retweet-info'}
             },
-            'required': ['time', 'user', 'hashtags', 'text'],
+            'required': ['time', 'user', 'hashtags', 'text', 'html'],
             'additionalProperties': False
         }
     },
