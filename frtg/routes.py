@@ -1,4 +1,5 @@
 import functools
+import html
 import logging
 
 from flask import Blueprint, jsonify, request, Response, render_template, current_app
@@ -102,7 +103,7 @@ def format_tweet(t):
         'time': t['created_at'],
         'user': _user(t),
         'hashtags': [h['text'] for h in t['entities']['hashtags']],
-        'text': t['full_text'],
+        'text': html.unescape(t['full_text']),
         'html': _insert_text_media(t)
     }
 
