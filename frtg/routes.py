@@ -66,7 +66,7 @@ def _do_twitter_query(credentials, filters, max_data_points=10):
 
 def format_tweet(t):
 
-    def _format_text(_t):
+    def _insert_text_media(_t):
         text = _t['full_text']
         for m in _t['entities'].get('media', []):
             text = text.replace(
@@ -102,7 +102,8 @@ def format_tweet(t):
         'time': t['created_at'],
         'user': _user(t),
         'hashtags': [h['text'] for h in t['entities']['hashtags']],
-        'text': _format_text(t)
+        'text': t['full_text'],
+        'html': _insert_text_media(t)
     }
 
 

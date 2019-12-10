@@ -71,7 +71,7 @@ class Tweet extends React.Component {
 
                 <span className="tweet-text-row">
                     <span className="tweet-text"
-                        dangerouslySetInnerHTML={{__html: this.props.info.text}} />
+                        dangerouslySetInnerHTML={{__html: this.props.info.html}} />
                 </span>
 
                 <span className="retweet-row" style={retweet_visibility_style}>
