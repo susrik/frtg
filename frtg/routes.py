@@ -1,4 +1,5 @@
 import functools
+import html
 import logging
 
 from flask import Blueprint, jsonify, request, Response, render_template, current_app
@@ -64,15 +65,30 @@ def _do_twitter_query(credentials, filters, max_data_points=10):
     #     return json.loads(f.read())
     return python_tweets.search(**query)['statuses']
 
-
 def format_tweet(t):
 
-    def _user(t):
+    def _insert_text_media(_t):
+        text = _t['full_text']
+        for m in _t['entities'].get('media', []):
+            text = text.replace(
+                m['url'],
+                f'<img height={m["sizes"]["small"]["h"]}'
+                f' width={m["sizes"]["small"]["w"]}'
+                f' src="{m["media_url"]}"/>')
+
+        for u in _t['entities'].get('urls', []):
+            text = text.replace(
+                u['url'],
+                f'<a href="{u["expanded_url"]}">{u["display_url"]}</a>')
+
+        return text
+
+    def _user(_t):
         return {
-            'name': t['user']['name'],
-            'screen_name': t['user']['screen_name'],
-            'profile_image': t['user']['profile_image_url'],
-            'user_loc': t['user']['location']
+            'name': _t['user']['name'],
+            'screen_name': _t['user']['screen_name'],
+            'profile_image': _t['user']['profile_image_url'],
+            'user_loc': _t['user']['location']
         }
 
     if 'retweeted_status' in t:
@@ -87,7 +103,8 @@ def format_tweet(t):
         'time': t['created_at'],
         'user': _user(t),
         'hashtags': [h['text'] for h in t['entities']['hashtags']],
-        'text': t['full_text']
+        'text': html.unescape(t['full_text']),
+        'html': _insert_text_media(t)
     }
 
 
