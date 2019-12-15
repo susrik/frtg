@@ -2,7 +2,8 @@ import functools
 import html
 import logging
 
-from flask import Blueprint, jsonify, request, Response, render_template, current_app
+from flask import Blueprint, jsonify, request, \
+    Response, render_template, current_app
 from twython import Twython
 
 blueprint = Blueprint("frtg-default-routes", __name__)
@@ -37,7 +38,7 @@ def version():
     version_params = {
         'api': API_VERSION,
         'module': None
-            # pkg_resources.get_distribution('frd3g').version
+        # 'module': pkg_resources.get_distribution('frd3g').version
     }
     return jsonify(version_params)
 
@@ -64,6 +65,7 @@ def _do_twitter_query(credentials, filters, max_data_points=10):
     # with open(data_filename) as f:
     #     return json.loads(f.read())
     return python_tweets.search(**query)['statuses']
+
 
 def format_tweet(t):
 
