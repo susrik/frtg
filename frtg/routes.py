@@ -1,7 +1,10 @@
 import functools
+import html
 import logging
 
-from flask import Blueprint, jsonify, request, Response, render_template, current_app
+from flask import Blueprint, jsonify, request, \
+    Response, render_template, current_app
+from twython import Twython
 
 blueprint = Blueprint("frtg-default-routes", __name__)
 
@@ -35,20 +38,93 @@ def version():
     version_params = {
         'api': API_VERSION,
         'module': None
-            # pkg_resources.get_distribution('frd3g').version
+        # 'module': pkg_resources.get_distribution('frd3g').version
     }
     return jsonify(version_params)
 
 
-@blueprint.route("/tweets", methods=['GET', 'POST'])
+def _do_twitter_query(credentials, filters, max_data_points=10):
+
+    python_tweets = Twython(
+        credentials['consumer key'],
+        credentials['consumer secret'])
+
+    query = {
+        'q': ' OR '.join(filters),
+        # 'result_type': 'popular',
+        'count': min(50, max(max_data_points, 0)),
+        # 'lang': 'en'
+        'tweet_mode': 'extended'
+    }
+
+    # import json
+    # import os
+    # data_filename = os.path.join(
+    #     os.path.dirname(__file__),
+    #     '..', 'test', 'sample_query_response.json')
+    # with open(data_filename) as f:
+    #     return json.loads(f.read())
+    return python_tweets.search(**query)['statuses']
+
+
+def format_tweet(t):
+
+    def _insert_text_media(_t):
+        text = _t['full_text']
+        for m in _t['entities'].get('media', []):
+            text = text.replace(
+                m['url'],
+                f'<img height={m["sizes"]["small"]["h"]}'
+                f' width={m["sizes"]["small"]["w"]}'
+                f' src="{m["media_url"]}"/>')
+
+        for u in _t['entities'].get('urls', []):
+            text = text.replace(
+                u['url'],
+                f'<a href="{u["expanded_url"]}">{u["display_url"]}</a>')
+
+        return text
+
+    def _user(_t):
+        return {
+            'name': _t['user']['name'],
+            'screen_name': _t['user']['screen_name'],
+            'profile_image': _t['user']['profile_image_url'],
+            'user_loc': _t['user']['location']
+        }
+
+    if 'retweeted_status' in t:
+        data = format_tweet(t['retweeted_status'])
+        data['retweet'] = {
+            'time': t['created_at'],
+            'user': _user(t),
+        }
+        return data
+
+    return {
+        'time': t['created_at'],
+        'user': _user(t),
+        'hashtags': [h['text'] for h in t['entities']['hashtags']],
+        'text': html.unescape(t['full_text']),
+        'html': _insert_text_media(t)
+    }
+
+
+@blueprint.route("/tweets", methods=['GET', 'POST'], defaults={'raw': None})
+@blueprint.route("/tweets/<raw>", methods=['GET', 'POST'])
 @require_accepts_json
-def tweets():
-    logger.debug(f'getting tweets')
-    DUMMY_DATA = [
-        {'a': 1, 'b': 2, 'c': 3},
-        {'a': 4, 'b': 5, 'c': 6}
-    ]
-    return jsonify(DUMMY_DATA)
+def tweets(raw):
+    logger.debug('getting tweets')
+    config = current_app.config['TWITTER_PARAMS']
+    query_results = _do_twitter_query(
+        credentials=config['credentials'],
+        filters=config['search']['filter hints'],
+        max_data_points=config['search']['max nr rows'])
+
+    if raw:
+        return jsonify(list(query_results))
+
+    return jsonify([format_tweet(t) for t in query_results])
 
 
 @blueprint.route('/')
