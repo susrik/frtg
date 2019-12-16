@@ -51,10 +51,11 @@ def create_app():
     """
 
     assert CONFIG_ENV_VAR_NAME in os.environ, \
-        f'expected {CONFIG_ENV_VAR_NAME} to be defined in the environment'
+        'expected {} to be defined in the environment'.format(
+            CONFIG_ENV_VAR_NAME)
     config_filename = os.environ[CONFIG_ENV_VAR_NAME]
     assert os.path.isfile(config_filename), \
-        f'config file {config_filename} not found'
+        'config file {} not found'.format(config_filename)
 
     with open(config_filename) as f:
         config = json.loads(f.read())

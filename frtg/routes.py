@@ -74,14 +74,15 @@ def format_tweet(t):
         for m in _t['entities'].get('media', []):
             text = text.replace(
                 m['url'],
-                f'<img height={m["sizes"]["small"]["h"]}'
-                f' width={m["sizes"]["small"]["w"]}'
-                f' src="{m["media_url"]}"/>')
+                '<img height={}'.format(m["sizes"]["small"]["h"])
+                + ' width={}'.format(m["sizes"]["small"]["w"])
+                + ' src="{}"/>'.format(m["media_url"]))
 
         for u in _t['entities'].get('urls', []):
             text = text.replace(
                 u['url'],
-                f'<a href="{u["expanded_url"]}">{u["display_url"]}</a>')
+                '<a href="{}">{}</a>'.format(
+                    u["expanded_url"], u["display_url"]))
 
         return text
 
