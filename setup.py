@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='frtg',
-    version="0.1",
+    version="0.2",
     author='GEANT',
     author_email='swd@geant.org',
     description='Flask/React Twitter grid',

@@ -1,5 +1,8 @@
 @import "~bootstrap/scss/bootstrap";
 
+body {
+  background-color: darkcyan;
+}
 .grid-container {
   @extend .m-3;
   display: grid;
@@ -13,5 +16,6 @@
   @extend .border;
   @extend .rounded;
   @extend .border-primary;
+  background-color: white;
 //  max-width: 400px;
 }

@@ -1,1 +1,2 @@
 0.1: initial release
+0.2: fixed some deployment issues, changed background color
