@@ -2,8 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.4.0/0.5.0] - 2020-03-21
-- added pypi classifiers & other metadata
+## [0.5.x] - 2020-03-21
+- added other pypi metadata
+
+## [0.4.0] - 2020-03-21
+- added pypi classifiers
 - misc doc & other cleanups
 - added license file
 - added .travis.yml
