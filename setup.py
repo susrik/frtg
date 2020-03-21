@@ -5,7 +5,7 @@ with open("README.md") as f:
 
 setup(
     name='frtg',
-    version="0.5.2",
+    version="0.5.3",
     author='Erik Reid',
     author_email='nobody@nowhere.org',
     description='Flask/React Twitter grid',
