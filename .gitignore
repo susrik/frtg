@@ -6,3 +6,4 @@ node_modules
 .tox
 htmlcov
 coverage.xml
+dist

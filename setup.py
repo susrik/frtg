@@ -5,7 +5,7 @@ with open("README.md") as f:
 
 setup(
     name='frtg',
-    version="0.5.1",
+    version="0.5.2",
     author='Erik Reid',
     author_email='nobody@nowhere.org',
     description='Flask/React Twitter grid',
@@ -22,12 +22,14 @@ setup(
     include_package_data=True,
     classifiers=[
         'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
         'Development Status :: 4 - Beta'
     ],
-    python_requires='>=3.6'
+    python_requires='>=3.5'
 )
 
