@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## [0.5.x] - 2020-03-21
 - added other pypi metadata
+- allow python 3.5 (for CentOS/7)
 
 ## [0.4.0] - 2020-03-21
 - added pypi classifiers
